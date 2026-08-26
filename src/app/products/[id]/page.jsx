@@ -1,3 +1,4 @@
+import CartButton from "@/app/components/CartButton"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -147,11 +148,11 @@ const Details = async({params}) => {
 
                     {/* Buttons */}
                     <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                    <button className="rounded-xl bg-primary py-4 font-bold text-white transition hover:bg-secondary">
+                    <CartButton product={product}>
                         Add to Cart
-                    </button>
+                    </CartButton>
 
-                    <button className="rounded-xl border-2 border-primary py-4 font-bold text-primary transition hover:bg-primary hover:text-white">
+                    <button className="mt-4 w-full rounded-xl bg-white border-2 border-primary py-3 font-semibold text-primary transition-colors hover:bg-primary hover:text-white cursor-pointer">
                         Buy Now
                     </button>
                     </div>

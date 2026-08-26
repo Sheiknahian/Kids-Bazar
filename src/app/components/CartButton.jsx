@@ -5,12 +5,21 @@ import Swal from "sweetalert2";
 const CartButton = ({product}) => {
     const handleCarts = async() => {
         console.log(product);
-        const res = await fetch('http://localhost:3000/api/cart', {
+        const cartProduct = {
+            title: product.title,
+            bangla: product.bangla,
+            image: product.image,
+            price: product.price,
+            discount: product.discount,
+            productId: product._id,
+            quantity: 1,
+        };
+        const res = await fetch(`http://localhost:3000/api/cart/${product._id}`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(product)
+            body: JSON.stringify(cartProduct)
         })
 
         const data = await res.json()
@@ -22,7 +31,7 @@ const CartButton = ({product}) => {
                     toast: true,
                     position: "top-end",
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 2000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
@@ -37,7 +46,7 @@ const CartButton = ({product}) => {
                 toast: true,
                 position: "top-end",
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 2000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;

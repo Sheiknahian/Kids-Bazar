@@ -12,7 +12,7 @@ const Products = async() => {
   
   return (
     <div className="m-10">
-      <h2 className="text-primary text-5xl font-bold text-center">All <span className="text-black">Products</span></h2>
+      <h2 className="text-primary text-4xl font-bold text-center">All <span className="text-black">Products</span></h2>
       <div className="grid grid-cols-4 gap-10 mt-10">
       {
         products?.map((product, index) => {
