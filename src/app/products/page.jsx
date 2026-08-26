@@ -11,7 +11,7 @@ const Products = async() => {
   const products = await getProducts()
   
   return (
-    <div className="m-10">
+    <div className="p-10 bg-[#FFF4D6]">
       <h2 className="text-primary text-4xl font-bold text-center">All <span className="text-black">Products</span></h2>
       <div className="grid grid-cols-4 gap-10 mt-10">
       {
@@ -28,6 +28,7 @@ const Products = async() => {
                   src={product.image}
                   alt={product.title}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 

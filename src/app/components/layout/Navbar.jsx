@@ -8,11 +8,11 @@ const Navbar = () => {
       <div>
         <h2 className="text-4xl text-primary font-bold">Kids <span className="text-black">Bazar</span></h2>
       </div>
-      <div className="flex gap-10 text-black">
+      <div className="flex gap-12 text-black">
         <Navlink href={'/'}>Home</Navlink>
         <Navlink href={'/products'}>Shop</Navlink>
-        <Navlink href={'/about'}>About</Navlink>
         <Navlink href={'/cartedProducts'}>Cart</Navlink>
+        <Navlink href={'/about'}>About</Navlink>
         
       </div>
       <div className="flex gap-2">
@@ -20,7 +20,7 @@ const Navbar = () => {
           <button className="btn bg-primary text-white border-primary text-lg font-semibold rounded-xl px-7 py-5 hover:bg-secondary">Login</button>
         </Link>
         <Link href={'/signup'}>
-          <button className="btn bg-white border-primary text-lg font-semibold rounded-xl px-7 py-5 text-primary hover:bg-primary hover:text-white">Register</button>
+          <button className="btn border-2 bg-white border-primary text-lg font-semibold rounded-xl px-7 py-5 text-primary hover:bg-primary hover:text-white">Register</button>
         </Link>
       </div>
     </div>

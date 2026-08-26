@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/layout/Navbar";
+import localFont from "next/font/local";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,6 +12,10 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const myFont = localFont({
+  src: '../../fonts/mayaboti-normal.ttf'
+})
 
 export const metadata = {
   title: "Kidz Bazar",
@@ -28,7 +33,7 @@ export default function RootLayout({ children }) {
           <Navbar></Navbar>
         </header>
       
-        <main>
+        <main className={myFont.className}>
           {children}
         </main>
 
