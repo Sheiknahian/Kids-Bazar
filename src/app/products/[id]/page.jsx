@@ -1,4 +1,6 @@
 import CartButton from "@/app/components/CartButton"
+import ProductAction from "@/app/components/ProductAction"
+import Quantity from "@/app/components/Quantity"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -50,6 +52,7 @@ const Details = async({params}) => {
                     src={product.image}
                     alt={product.title}
                     fill
+                    sizes="500px"
                     priority
                     className="object-contain p-8"
                     />
@@ -126,36 +129,7 @@ const Details = async({params}) => {
                     </div>
 
                     {/* Quantity */}
-                    <div className="mt-7">
-                    <p className="mb-2 font-semibold text-neutral">
-                        Quantity
-                    </p>
-
-                    <div className="flex w-fit items-center overflow-hidden rounded-lg border border-base-300">
-                        <button className="px-4 py-2 text-xl hover:bg-base-200">
-                        −
-                        </button>
-
-                        <span className="border-x border-base-300 px-6 py-2">
-                        1
-                        </span>
-
-                        <button className="px-4 py-2 text-xl hover:bg-base-200">
-                        +
-                        </button>
-                    </div>
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                    <CartButton product={product}>
-                        Add to Cart
-                    </CartButton>
-
-                    <button className="mt-4 w-full rounded-xl bg-white border-2 border-primary py-3 font-semibold text-primary transition-colors hover:bg-primary hover:text-white cursor-pointer">
-                        Buy Now
-                    </button>
-                    </div>
+                    <ProductAction product={product}></ProductAction>
 
                 </div>
                 </div>

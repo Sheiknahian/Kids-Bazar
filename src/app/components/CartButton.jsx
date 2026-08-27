@@ -1,10 +1,18 @@
 'use client'
 
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
-const CartButton = ({product}) => {
+const CartButton = ({product, count}) => {
+    const router = useRouter()
+    const session = useSession()
+    
     const handleCarts = async() => {
-        console.log(product);
+        if (!session.data) {
+            return router.push('/auth/login')
+        }
+        // console.log(session.data);
         const cartProduct = {
             title: product.title,
             bangla: product.bangla,
@@ -12,9 +20,11 @@ const CartButton = ({product}) => {
             price: product.price,
             discount: product.discount,
             productId: product._id,
-            quantity: 1,
+            email: session.data.user.email,
+            userID: session.data.user.id,
+            quantity: count || 1,
         };
-        const res = await fetch(`http://localhost:3000/api/cart/${product._id}`, {
+        const res = await fetch(`http://localhost:3000/api/cart/${product._id}_${session.data.user.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -23,7 +33,7 @@ const CartButton = ({product}) => {
         })
 
         const data = await res.json()
-        console.log(data);
+        // console.log(data);
         
         if (res.ok) {
             if (data.status === 409) {

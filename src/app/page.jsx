@@ -1,7 +1,12 @@
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
-export default function Home() {
+export default async function Home() {
+  const seasson = await getServerSession(authOptions)
+  console.log(seasson);
+  
   return (
     <section className="relative overflow-hidden min-h-screen bg-[#FFF4D6] px-6 py-30 sm:px-10 lg:px-16">
       {/* Decorative shapes */}

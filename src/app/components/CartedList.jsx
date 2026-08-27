@@ -13,7 +13,6 @@ const CartedList = ({products}) => {
         }));        
     }
 
-    console.log(cartCount);
     
 
     const subtotal = products.reduce((total, product) => {
@@ -34,22 +33,30 @@ const CartedList = ({products}) => {
     // }, 0);
 
     const deliveryCharge = 60;
-    const total = subtotal + deliveryCharge;
+    const total = subtotal + (products.length !== 0 ? deliveryCharge : 0);
     
     return (
         <div className="p-10 min-h-screen bg-[#FFF4D6]">
             <h2 className="text-primary text-4xl font-bold text-center">Carted <span className="text-black">Products</span></h2>
             <div className="mt-10 grid grid-cols-2 gap-10">
                 <div className="flex flex-col gap-5">
+                    <div className="bg-white py-5 rounded-2xl border border-gray-200 shadow-sm">
+                        <h2 className="text-primary text-3xl font-bold text-center">Products <span className="text-black">: {products?.length}</span></h2>
+                    </div>
                 {
                     products.map((product, index) => {
                         const discountedPrice =
                         product.price - (product.price * product.discount) / 100;
                         // const [totalPrice, setTotalPrice] = useState(discountedPrice)
 
-                        const count = cartCount[product._id] || product.quantity;
-                        const totalPrice = discountedPrice * count;
+                        const quantity = cartCount[product._id] || product.quantity;
+                        const totalPrice = discountedPrice * quantity;
                         
+                        // console.log(totalPrice, quantity);
+                        
+                        
+                        
+
                         return (
                         <div key={index} className="flex w-full items-center gap-5 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
                         {/* Product Image */}
@@ -97,7 +104,7 @@ const CartedList = ({products}) => {
                         </div>
 
                         {/* Quantity */}
-                        <Quantity handleQuantity={(count) => handleQuantity(product._id, count)}></Quantity>
+                        <Quantity handleQuantity={(count) => handleQuantity(product._id, count)} quantity={quantity}></Quantity>
 
                         {/* Total Price */}
                         <div className="w-28 shrink-0 text-right">
@@ -134,7 +141,7 @@ const CartedList = ({products}) => {
                             </th>
 
                             <th className="px-6 py-3 text-right text-sm font-semibold text-gray-600">
-                                Price
+                                Unit Price
                             </th>
 
                             <th className="px-6 py-3 text-right text-sm font-semibold text-gray-600">
@@ -161,7 +168,7 @@ const CartedList = ({products}) => {
                                 </td>
 
                                 <td className="px-6 py-4 text-center text-gray-700">
-                                    {cartCount[product._id] || 1}
+                                    {cartCount[product._id] || product.quantity}
                                 </td>
 
                                 <td className="px-6 py-4 text-right text-gray-700">
@@ -193,6 +200,8 @@ const CartedList = ({products}) => {
                             </tr>
 
                             <tr>
+                            {products.length !== 0 && 
+                            <>
                             <td
                                 colSpan="3"
                                 className="px-6 py-3 text-right text-gray-600"
@@ -203,6 +212,8 @@ const CartedList = ({products}) => {
                             <td className="px-6 py-3 text-right font-semibold">
                                 ৳60
                             </td>
+                            </>
+                            }
                             </tr>
 
                             <tr className="bg-gray-50">
@@ -214,7 +225,7 @@ const CartedList = ({products}) => {
                             </td>
 
                             <td className="px-6 py-4 text-right text-xl font-bold text-orange-500">
-                                ৳{total}
+                                ৳{Math.round(total)}
                             </td>
                             </tr>
                         </tfoot>
