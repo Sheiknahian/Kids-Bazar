@@ -2,15 +2,24 @@
 import { useState } from "react";
 import Quantity from "./Quantity";
 import RemoveCart from "./RemoveCart";
+import Link from "next/link";
 
 const CartedList = ({products}) => {
     const [cartCount, setCartCount] = useState({})
 
-    const handleQuantity = (id, count) => {
+    const handleQuantity = async(id, count) => {
         setCartCount((prev) => ({
             ...prev,
             [id]: count,
         }));        
+
+        await fetch(`/api/cart/${id}`, {
+            method: "PATCH",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ quantity: count }),
+        });
     }
 
     
@@ -233,9 +242,11 @@ const CartedList = ({products}) => {
                     </div>
 
                     <div className="p-6">
-                        <button className="w-full rounded-xl bg-orange-500 py-3.5 font-semibold text-white transition hover:bg-orange-600">
-                        Proceed to Checkout →
-                        </button>
+                        <Link href={'/checkout'}>
+                            <button className="w-full rounded-xl bg-orange-500 py-3.5 font-semibold text-white transition hover:bg-orange-600">
+                            Proceed to Checkout →
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
