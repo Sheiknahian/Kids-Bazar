@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛍️ Kids Bazar
 
-## Getting Started
+A full-stack e-commerce platform built with Next.js, MongoDB, and Tailwind CSS.  
+Users can browse products, view product details, manage their cart, and complete purchases through online payment.
 
-First, run the development server:
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](./Kids_Bazar_SS/Kids_Bazar_Cover.png)
+
+### Products
+
+![Products](./Kids_Bazar_SS/Shop.png)
+
+### Product Details
+
+![Product Details](./Kids_Bazar_SS/Details.png)
+
+### Cart
+
+![Cart](./Kids_Bazar_SS/Cart.png)
+
+## ✨ Features
+
+- User authentication
+- Product browsing
+- Product details page
+- Shopping cart management
+- Checkout system
+- Online payment with Stripe
+- MongoDB database integration
+- Responsive user interface
+- Modern UI with Tailwind CSS
+
+## 🛠️ Technologies
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white)
+
+## 🚀 Live Demo
+
+[Visit Kids Bazar](https://kids-bazar.vercel.app)
+
+## ⚙️ Installation
+
+Clone the repository:
 
 ```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd kids-bazar
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```.env
+Create a .env.local file in the root directory and add the required environment variables:
+URI=mongodb+srv://sheiknahian06_db_user:Z6XqlQDTqMJycGrS@cluster0.olqlgnl.mongodb.net/?appName=Cluster0
+DB_NAME=kidsbazar
+NEXTAUTH_SECRET=nahian234
+AUTH_GOOGLE_ID=859436070823-khl3t0f82b67paggfjsk4smtp1h2q35l.apps.googleusercontent.com
+AUTH_GOOGLE_SECRET=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
