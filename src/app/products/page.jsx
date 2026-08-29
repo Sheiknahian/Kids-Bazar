@@ -1,14 +1,11 @@
 import Image from "next/image"
 import CartButton from "../components/CartButton"
 import Link from "next/link"
-
-const getProducts = async() => {
-  const res = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/products`).then(res=>res.json())
-  return res
-}
+import { getProducts } from "@/lib/products"
 
 const Products = async() => {
   const products = await getProducts()
+  console.log(products);
   
   return (
     <div className="p-10 bg-[#FFF4D6]">

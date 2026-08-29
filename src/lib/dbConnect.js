@@ -7,7 +7,7 @@ const collections = {
     PRODUCT: 'product'
 }
 
-const client = new MongoClient(uri, {
+export const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
