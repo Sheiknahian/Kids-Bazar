@@ -5,7 +5,7 @@ import Image from "next/image";
 const getOrder = async(orderId) => {
     console.log(orderId);
     
-    const res = await fetch(`http://localhost:3000/api/orders/${orderId}`).then(res => res.json())
+    const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/orders/${orderId}`).then(res => res.json())
     return res
 }
 
