@@ -3,7 +3,7 @@ import CartButton from "../components/CartButton"
 import Link from "next/link"
 
 const getProducts = async() => {
-  const res = await fetch(`${process.env.LOCAL_URL || ""}/api/products`).then(res=>res.json())
+  const res = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/products`).then(res=>res.json())
   return res
 }
 

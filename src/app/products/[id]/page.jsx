@@ -6,7 +6,7 @@ import Link from "next/link"
 
 const getDetails = async(id) => {
     
-    const res = await fetch(`${process.env.LOCAL_URL || ""}/api/products/${id}`).then(res=>res.json())
+    const res = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/products/${id}`).then(res=>res.json())
     return res
 }
 

@@ -24,7 +24,7 @@ const CartButton = ({product, count}) => {
             userID: session.data.user.id,
             quantity: count || 1,
         };
-        const res = await fetch(`${process.env.LOCAL_URL || ""}/api/cart/${product._id}_${session.data.user.id}`, {
+        const res = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/cart/${product._id}_${session.data.user.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'

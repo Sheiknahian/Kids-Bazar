@@ -5,7 +5,7 @@ import { useState } from "react"
 import Swal from "sweetalert2"
 
 const postOrderToDB = async(checkout, userId) => {
-    const res = await fetch('${process.env.LOCAL_URL || ""}/api/orders', {
+    const res = await fetch('${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/orders', {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
@@ -13,7 +13,7 @@ const postOrderToDB = async(checkout, userId) => {
         body: JSON.stringify(checkout)
     })
     if (res.ok) {
-        const result = await fetch(`${process.env.LOCAL_URL || ""}/api/cart?userId=${userId}`, {
+        const result = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/cart?userId=${userId}`, {
             method: 'DELETE'
         })
         return result

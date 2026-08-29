@@ -3,7 +3,7 @@ import CartedList from "../components/CartedList"
 import { authOptions } from "../api/auth/[...nextauth]/route"
 
 export const getCartedProducts = async(userId) => {
-    const res = await fetch(`${process.env.LOCAL_URL || ""}/api/cart/${userId}`).then(res=>res.json())
+    const res = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/cart/${userId}`).then(res=>res.json())
     return res
 }
 
