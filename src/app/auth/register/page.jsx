@@ -27,7 +27,7 @@ const Register = () => {
             password
         }
         
-        const res = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/users`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/users`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'

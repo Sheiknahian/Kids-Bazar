@@ -3,26 +3,33 @@ import Image from "next/image"
 import PaymentMethod from "./PaymentMethod"
 import { useState } from "react"
 import Swal from "sweetalert2"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const postOrderToDB = async(checkout, userId) => {
-    const res = await fetch('${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/orders', {
+    console.log(checkout);
+    
+    const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/orders`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
         },
         body: JSON.stringify(checkout)
     })
-    if (res.ok) {
-        const result = await fetch(`${process.env.LOCAL_URL || "https://kids-bazar.vercel.app"}/api/cart?userId=${userId}`, {
+    if (res.ok && userId) {
+        const result = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/cart?userId=${userId}`, {
             method: 'DELETE'
         })
-        return result
+        return [result, res]
     }
+    return [res]
 }
 
-const CheckoutPage = ({session, products, subtotal}) => {
+const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
+    const router = useRouter()
     const [payment, setPayment] = useState('cod')
-
+    console.log(process.env.NEXT_PUBLIC_LOCAL_URL);
+    
     const handleOnSubmit = async(e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
@@ -41,8 +48,8 @@ const CheckoutPage = ({session, products, subtotal}) => {
         console.log(checkout);
 
         if (payment === 'cod') {
-            const orderConfirm = await postOrderToDB(checkout, session?.user?.id)
-            if (orderConfirm.ok) {
+            const orderConfirm = await postOrderToDB(checkout, !singleBuy && session?.user?.id)
+            if (orderConfirm[0].ok) {
                 Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -58,6 +65,12 @@ const CheckoutPage = ({session, products, subtotal}) => {
                     title: 'Order Confirmed!'
                 });
             }
+            // console.log(await orderConfirm[0].json());
+            const result = await orderConfirm[0].json()
+            const orderId = result.insertedId
+            console.log(orderId);
+            
+            return router.push(`/successPage?orderId=${orderId}`)
         }
         
         // console.log(data);

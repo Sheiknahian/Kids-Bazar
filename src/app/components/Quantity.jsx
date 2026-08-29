@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const Quantity = ({ handleQuantity, setCountt, quantity}) => {
-    const [count, setCount] = useState(quantity);
+    const [count, setCount] = useState(quantity || 1);
 
     const increase = () => {
         const newCount = count + 1;
@@ -20,6 +20,8 @@ const Quantity = ({ handleQuantity, setCountt, quantity}) => {
             handleQuantity && handleQuantity(newCount);
         }
     };
+    console.log(count);
+    
 
     return (
         <div className="flex">
