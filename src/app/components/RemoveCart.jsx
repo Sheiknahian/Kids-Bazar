@@ -16,7 +16,7 @@ const RemoveCart = ({id}) => {
             confirmButtonText: "Remove!"
         }).then(async(result) => {
             if (result.isConfirmed) {
-                const res = await fetch(`http://localhost:3000/api/cart/${id}`, {
+                const res = await fetch(`${process.env.LOCAL_URL || ""}/api/cart/${id}`, {
                     method: 'DELETE'
                 })
                 if (res.ok) {
