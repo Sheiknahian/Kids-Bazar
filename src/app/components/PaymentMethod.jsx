@@ -32,9 +32,9 @@ const PaymentMethod = ({setPayment, payment}) => {
                     </div>
                 </label>
 
-                <label className={`flex cursor-pointer items-center gap-4 rounded-xl hover:border-primary p-4 ${payment === 'stripe' ? 'border-2 border-primary bg-orange-50' : 'border border-gray-200'}`}>
+                <label className={`flex cursor-pointer items-center gap-4 rounded-xl hover:border-primary p-4 ${payment === 'online' ? 'border-2 border-primary bg-orange-50' : 'border border-gray-200'}`}>
                     <input
-                        onChange={() => setPayment('stripe')}
+                        onChange={() => setPayment('online')}
                         type="radio"
                         name="payment"
                         className="h-5 w-5 accent-primary"

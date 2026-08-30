@@ -5,6 +5,7 @@ import { useState } from "react"
 import Swal from "sweetalert2"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import PaymentModal from "./PaymentModal"
 
 const postOrderToDB = async(checkout, userId) => {
     console.log(checkout);
@@ -26,8 +27,10 @@ const postOrderToDB = async(checkout, userId) => {
 }
 
 const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
+    const [modal, setModal] = useState(false)
     const router = useRouter()
     const [payment, setPayment] = useState('cod')
+    const [gateway, setGateway] = useState('')
     console.log(process.env.NEXT_PUBLIC_LOCAL_URL);
     
     const handleOnSubmit = async(e) => {
@@ -72,6 +75,23 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
             
             return router.push(`/successPage?orderId=${orderId}`)
         }
+        if (payment === 'online') {
+            setModal(true)
+            if (gateway === 'stripe') {
+                const orderConfirm = await postOrderToDB(checkout)
+                if (orderConfirm[0].ok) {
+                    const result = await orderConfirm[0].json()
+                    const orderId = result.insertedId
+                    const res = await fetch(`http://localhost:3000/api/create-checkout-session?orderId=${orderId}`, {
+                        method: 'POST'
+                    })
+                    if (res) {                        
+                        const data = await res.json()
+                        return window.location.href = data.stripeUrl
+                    }
+                }
+            }
+        }
         
         // console.log(data);
         
@@ -99,62 +119,67 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
                         </h2>
 
                         <div className="grid gap-5 md:grid-cols-2">
-                        {/* Name */}
-                        <div>
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                            Full Name
-                            </label>
-                            <input
-                            name="name"
-                            type="text"
-                            placeholder="Enter your full name"
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                            />
-                        </div>
+                            {/* Name */}
+                            <div>
+                                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                Full Name
+                                </label>
+                                <input
+                                name="name"
+                                type="text"
+                                placeholder="Enter your full name"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                />
+                            </div>
 
-                        {/* Phone */}
-                        <div>
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                            Phone Number
-                            </label>
-                            <input
-                            name="phone"
-                            type="tel"
-                            placeholder="01XXXXXXXXX"
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                            />
-                        </div>
+                            {/* Phone */}
+                            <div>
+                                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                Phone Number
+                                </label>
+                                <input
+                                name="phone"
+                                type="tel"
+                                placeholder="01XXXXXXXXX"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                />
+                            </div>
 
-                        {/* Email */}
-                        <div className="md:col-span-2">
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                            Email Address
-                            </label>
-                            <input
-                            defaultValue={session?.user?.email}
-                            disabled
-                            type="email"
-                            placeholder="example@gmail.com"
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                            />
-                        </div>
+                            {/* Email */}
+                            <div className="md:col-span-2">
+                                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                Email Address
+                                </label>
+                                <input
+                                defaultValue={session?.user?.email}
+                                disabled
+                                type="email"
+                                placeholder="example@gmail.com"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                />
+                            </div>
 
-                        {/* Address */}
-                        <div className="md:col-span-2">
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                            Delivery Address
-                            </label>
-                            <textarea
-                            name="address"
-                            rows="4"
-                            placeholder="House, Road, Area, City..."
-                            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                            />
-                        </div>
+                            {/* Address */}
+                            <div className="md:col-span-2">
+                                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                Delivery Address
+                                </label>
+                                <textarea
+                                name="address"
+                                rows="4"
+                                placeholder="House, Road, Area, City..."
+                                className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                />
+                            </div>
                         </div>
 
                         {/* Payment */}
                         <PaymentMethod setPayment={setPayment} payment={payment}></PaymentMethod>
+
+                        {
+                            modal ? <PaymentModal setModal={setModal} setGateway={setGateway}></PaymentModal> : ''
+                        }
+                        
                     </div>
                 {/* Right - Order Summary */}
                     <div className="h-fit rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
