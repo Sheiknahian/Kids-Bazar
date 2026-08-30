@@ -82,7 +82,7 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
                 if (orderConfirm[0].ok) {
                     const result = await orderConfirm[0].json()
                     const orderId = result.insertedId
-                    const res = await fetch(`http://localhost:3000/api/create-checkout-session?orderId=${orderId}&singleBuy=${singleBuy}`, {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/create-checkout-session?orderId=${orderId}&singleBuy=${singleBuy}`, {
                         method: 'POST'
                     })
                     if (res) {                        
