@@ -16,7 +16,7 @@ const ProductAction = ({product}) => {
                 <CartButton product={product} count={count}>
                     Add to Cart
                 </CartButton>
-                <Link href={`/checkout?productId=${product._id}&quantity=${count}`}>
+                <Link href={`/checkout?productId=${product._id}&quantity=${count}&singleBuy=${true}`}>
                     <button className="mt-4 w-full rounded-xl bg-white border-2 border-primary py-3 font-semibold text-primary transition-colors hover:bg-primary hover:text-white cursor-pointer">
                         Buy Now
                     </button>

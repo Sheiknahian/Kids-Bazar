@@ -22,7 +22,6 @@ const CartedList = ({products}) => {
         });
     }
 
-    
 
     const subtotal = products.reduce((total, product) => {
         const discountedPrice =
@@ -242,11 +241,18 @@ const CartedList = ({products}) => {
                     </div>
 
                     <div className="p-6">
+                    {
+                        products.length < 1 ?
+                        <button disabled className="w-full rounded-xl bg-orange-500 py-3.5 font-semibold text-white transition hover:bg-orange-600">
+                                Proceed to Checkout →
+                        </button>
+                        :
                         <Link href={'/checkout'}>
-                            <button className="w-full rounded-xl bg-orange-500 py-3.5 font-semibold text-white transition hover:bg-orange-600">
-                            Proceed to Checkout →
+                            <button className="w-full cursor-pointer rounded-xl bg-orange-500 py-3.5 font-semibold text-white transition hover:bg-orange-600">
+                                Proceed to Checkout →
                             </button>
                         </Link>
+                    }
                     </div>
                 </div>
             </div>

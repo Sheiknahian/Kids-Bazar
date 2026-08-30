@@ -4,8 +4,9 @@ import { ObjectId } from "mongodb";
 export async function POST(req) {
     const {searchParams} = new URL(req.url)
     const orderId = searchParams.get('orderId')
+    const singleBuy = searchParams.get('singleBuy')
     const order = await orders.findOne({_id: new ObjectId(orderId)})
-    // console.log(order);
+    console.log('order', order);
     
     const session = await stripe.checkout.sessions.create({
         mode: 'payment',
@@ -22,7 +23,9 @@ export async function POST(req) {
         success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/successPage?orderId=${orderId}`,
         cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`,
         metadata: {
-            orderId: String(orderId)
+            orderId: orderId,
+            singleBuy: singleBuy,
+            userId: order.userId
         }
     })
     // console.log(session.url);
