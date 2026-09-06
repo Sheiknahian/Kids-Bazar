@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import PaymentModal from "./PaymentModal"
 
 const postOrderToDB = async(checkout, userId) => {
-    console.log(checkout);
+    console.log(checkout, userId);
     
     const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/orders`, {
         method: 'POST',
@@ -21,7 +21,7 @@ const postOrderToDB = async(checkout, userId) => {
         const result = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_URL || "https://kids-bazar.vercel.app"}/api/cart?userId=${userId}`, {
             method: 'DELETE'
         })
-        return [result, res]
+        return [res, result]
     }
     return [res]
 }
@@ -48,9 +48,11 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
             paymentStatus: 'unpaid',
             createdAt: new Date()
         }
-        console.log(checkout);
+        // console.log(checkout)
 
         if (payment === 'cod') {
+            console.log(!singleBuy);
+            
             const orderConfirm = await postOrderToDB(checkout, !singleBuy && session?.user?.id)
             if (orderConfirm[0].ok) {
                 Swal.mixin({
@@ -97,10 +99,12 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
         
     }
 
-    
+    if (products.length < 1) {
+        return router.push('/products')
+    }
     return (
-        <div className="min-h-screen bg-[#FFF4D6] px-6 py-10 md:px-10">
-            <div className="mx-auto max-w-6xl">     
+        <div className="min-h-screen w-full overflow-x-hidden bg-[#FFF4D6] px-4 py-10 sm:px-6 md:px-10">
+            <div className="mx-auto w-full max-w-6xl">  
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-4xl font-bold text-gray-900">
@@ -112,8 +116,7 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
                 </div>
 
                 <form onSubmit={handleOnSubmit} className="grid gap-8 lg:grid-cols-[1fr_400px]">
-                {/* Left - Customer Information */} 
-                    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                    <div className="min-w-0 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                         <h2 className="mb-6 text-2xl font-bold text-gray-900">
                         Delivery Information
                         </h2>
@@ -182,7 +185,7 @@ const CheckoutPage = ({session, products, subtotal, singleBuy}) => {
                         
                     </div>
                 {/* Right - Order Summary */}
-                    <div className="h-fit rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
+                    <div className="min-w-0 h-fit rounded-2xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm lg:sticky lg:top-6">
                         <h2 className="mb-6 text-2xl font-bold text-gray-900">
                         Order Summary
                         </h2>

@@ -9,3 +9,10 @@ export async function POST(req) {
     
     return Response.json(result)
 }
+
+export async function GET(req) {
+    const {searchParams} = new URL(req.url)
+    const userId = searchParams.get('userId')
+    const userOrders = await orders.find({userId: userId}).toArray()
+    return Response.json(userOrders)
+}

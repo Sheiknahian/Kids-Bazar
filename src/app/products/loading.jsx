@@ -1,8 +1,8 @@
 const loading = () => {
   return (
-    <div className="p-10 bg-[#FFF4D6]">
+    <div className="p-4 md:p-6 lg:p-10 bg-[#FFF4D6]">
         <h2 className="text-primary text-4xl font-bold text-center">All <span className="text-black">Products</span></h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-10">
             {Array.from({ length: 8 }).map((_, i) => (
                 <div
                     key={i}

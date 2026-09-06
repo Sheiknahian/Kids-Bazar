@@ -5,13 +5,13 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const seasson = await getServerSession(authOptions)
-  console.log(seasson);
+  // console.log(seasson);
   
   return (
-    <section className="relative overflow-hidden min-h-screen bg-[#FFF4D6] px-6 py-30 sm:px-10 lg:px-16">
+    <section className="relative min-h-screen bg-[#FFF4D6] px-6 py-5 md:py-30 sm:px-10 lg:px-16">
       {/* Decorative shapes */}
-      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#FFD166]/40 blur-2xl" />
-      <div className="absolute -bottom-20 left-1/3 h-52 w-52 rounded-full bg-[#A8DADC]/40 blur-3xl" />
+      <div className="absolute hidden -right-16 -top-16 h-48 w-48 rounded-full bg-[#FFD166]/40 blur-2xl" />
+      <div className="absolute hidden -bottom-20 left-1/3 h-52 w-52 rounded-full bg-[#A8DADC]/40 blur-3xl" />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
         {/* Left Content */}
@@ -68,7 +68,7 @@ export default async function Home() {
         <div className="relative mx-auto w-full max-w-xl">
           <div className="absolute inset-5 rounded-full bg-orange-300/30 blur-3xl" />
 
-          <div className="relative overflow-hidden rounded-[2rem] bg-white p-4 shadow-2xl">
+          <div className="relative rounded-[2rem] bg-white p-4 shadow-2xl">
             <Image
               src="https://i.ibb.co.com/vxMYHV6V/image.png"
               alt="Kids toys"

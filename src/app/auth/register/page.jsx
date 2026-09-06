@@ -51,7 +51,7 @@ const Register = () => {
     }
 
     return (
-        <div className="flex justify-center bg-[#FFF4D6] px-4 pt-28 pb-10">
+        <div className="flex justify-center bg-[#FFF4D6] px-4 pt-15 xl:pt-28 pb-10">
         <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
             
             {/* Heading */}
